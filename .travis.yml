@@ -30,6 +30,14 @@ script:
 
     # Build all assets
     npm run build
+deploy:
+  provider: s3
+  bucket: notkisi
+  skip_cleanup: true
+  local_dir: dist
+  acl: public_read
+  on:
+    branch: master
 env:
   global:
     - MAJOR_MINOR_VERSION=0.1
