@@ -1,0 +1,35 @@
+language: node_js
+dist    : trusty
+if      : tag IS blank
+sudo    : required
+node_js:
+  - "8"
+install:
+  - |
+    # Fail completely
+    set -e
+
+    # Identify the correct version number
+    if [ "$TRAVIS_BRANCH" == "master" ]; then
+        VERSION="${MAJOR_MINOR_VERSION}.${TRAVIS_BUILD_NUMBER}"
+    else
+        GIT_HASH="$(git rev-parse --short HEAD)"
+        VERSION="${MAJOR_MINOR_VERSION}.${TRAVIS_BUILD_NUMBER}-$GIT_HASH"
+    fi
+
+    echo "Building $TRAVIS_BRANCH: $VERSION"
+
+    # Update the package.json with the correct version number
+    npm version --no-git-tag-version $VERSION
+    # Install all dependencies
+    npm install
+script:
+  - |
+    # Fail completely
+    set -e
+
+    # Build all assets
+    npm run build
+env:
+  global:
+    - MAJOR_MINOR_VERSION=0.1
