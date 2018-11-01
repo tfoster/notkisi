@@ -1,4 +1,4 @@
-# fkisi
+# Not KISI
 
 > An unsupported alternative to the default kisi client
 

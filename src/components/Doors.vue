@@ -78,8 +78,8 @@ export default {
           if (!response.ok) {
             clearInterval(intervalId);
             if (response.status === 401) {
-              localStorage.removeItem('fkisi_user');
-              localStorage.removeItem('fkisi_auth');
+              localStorage.removeItem('notkisi_user');
+              localStorage.removeItem('notkisi_auth');
               this.$router.push('/');
             }
             return;
@@ -88,7 +88,7 @@ export default {
           response.text()
             .then((auth) => {
               this.status.error = false;
-              localStorage.setItem('fkisi_user', auth);
+              localStorage.setItem('notkisi_user', auth);
             })
             .catch(() => {
               this.status.error = true;
@@ -147,7 +147,7 @@ export default {
       } else {
         favorites.splice(index, 1);
       }
-      localStorage.setItem('fkisi_favorites', JSON.stringify(favorites));
+      localStorage.setItem('notkisi_favorites', JSON.stringify(favorites));
       this.favorites = favorites;
     },
     unlock(id) {
@@ -189,7 +189,7 @@ export default {
       window.location.reload();
     },
     retrieveFavorites() {
-      const favorites = localStorage.getItem('fkisi_favorites');
+      const favorites = localStorage.getItem('notkisi_favorites');
       if (!favorites) {
         return [];
       }
@@ -197,7 +197,7 @@ export default {
       return JSON.parse(favorites);
     },
     retrieveSecret() {
-      const rawAuthn = localStorage.getItem('fkisi_auth');
+      const rawAuthn = localStorage.getItem('notkisi_auth');
       if (!rawAuthn) {
         this.$router.push('/');
         return undefined;

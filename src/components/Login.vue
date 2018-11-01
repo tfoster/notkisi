@@ -77,7 +77,7 @@ export default {
           response.text()
             .then((auth) => {
               this.status.inProgress = false;
-              localStorage.setItem('fkisi_auth', auth);
+              localStorage.setItem('notkisi_auth', auth);
               this.$router.push('/doors');
             })
             .catch(() => {

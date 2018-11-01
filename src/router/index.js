@@ -12,7 +12,7 @@ const router = new Router({
       path: '/',
       component: Login,
       beforeEnter: (to, from, next) => {
-        if (localStorage.getItem('fkisi_auth') !== null) {
+        if (localStorage.getItem('notkisi_auth') !== null) {
           next('/doors');
           return;
         }
@@ -23,7 +23,7 @@ const router = new Router({
     {
       path: '/logout',
       beforeEnter: (to, from, next) => {
-        localStorage.removeItem('fkisi_auth');
+        localStorage.removeItem('notkisi_auth');
         next('/');
       },
     },
@@ -40,7 +40,7 @@ router.beforeEach((to, from, next) => {
     return;
   }
 
-  if (localStorage.getItem('fkisi_auth') === null) {
+  if (localStorage.getItem('notkisi_auth') === null) {
     next('/');
   }
 
