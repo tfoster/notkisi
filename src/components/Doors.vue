@@ -1,27 +1,34 @@
 <template>
   <div class="doors">
+    <header class="ui three column grid middle aligned">
+      <div id="signout" class="column" v-on:click=signout>
+        <i class="large sign out icon"></i>
+      </div>
+      <div class="column">
+        <img class="ui mini centered image" src="static/not_kisi_logo_256.png" />
+      </div>
+    </header>
     <div class="ui message error center" v-bind:class="{ hidden: !status.error }">
       <p>An error has occured. Please check your network connection and try again.</p>
       <button class="ui button" v-on:click="reload">Retry</button>
     </div>
     <div class="ui loader" v-bind:class="{ active: status.loading }"></div>
-    <div class="ui list" v-bind=doors>
-      <div class="item" v-for="door in doors" v-bind:key=door.id>
-        <div class="item">
-          <div class="right floated content">
-            <button class="ui icon button"
+    <div class="ui middle aligned list">
+      <div class="item door" v-for="door in doors" v-bind:key=door.id>
+        <div class="right floated content">
+          <button class="ui icon button"
                 v-on:click="unlock(door.id)"
                 v-bind:class="{ loading: door.unlocking }"
                 v-bind:disabled=door.unlocked>
-              <i class="icon" v-bind:class="{ lock: !door.unlocked, unlock: door.unlocked }"></i>
-            </button>
-          </div>
-          <div class="middle aligned content">
-            <i class="star icon"
-                v-bind:class="{ empty: favorites.indexOf(door.id) < 0 }"
-                v-on:click="favorite(door.id)"></i>
-            {{door.name}}
-          </div>
+            <i class="large icon"
+                v-bind:class="{ lock: !door.unlocked, unlock: door.unlocked }"></i>
+          </button>
+        </div>
+        <div class="content">
+          <i class="star large icon"
+              v-bind:class="{ empty: favorites.indexOf(door.id) < 0 }"
+              v-on:click="favorite(door.id)"></i>
+          {{door.name}}
         </div>
       </div>
     </div>
@@ -139,6 +146,9 @@ export default {
       });
   },
   methods: {
+    signout() {
+      this.$router.push('/logout');
+    },
     favorite(id) {
       const favorites = this.retrieveFavorites();
       const index = favorites.indexOf(id);
@@ -199,7 +209,7 @@ export default {
     retrieveSecret() {
       const rawAuthn = localStorage.getItem('notkisi_auth');
       if (!rawAuthn) {
-        this.$router.push('/');
+        this.$router.push('/logout');
         return undefined;
       }
 
@@ -211,4 +221,12 @@ export default {
 </script>
 
 <style scoped>
+.doors > header {
+  padding-bottom: 10px;
+}
+
+.door > .content {
+  height: 40px;
+  display: table-cell;
+}
 </style>

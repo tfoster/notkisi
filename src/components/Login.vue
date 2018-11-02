@@ -1,6 +1,8 @@
 <template>
   <div class="login">
-    <h1>Login</h1>
+    <header>
+      <img class="ui centered medium image" src="static/not_kisi_logo_256.png" alt="Not KISI" />
+    </header>
     <form class="ui form" v-bind=user>
       <div class="ui message error" v-bind:class="{ visible: status.unauthorized }">
         The credentials provided are invalid, please try again.
@@ -10,8 +12,7 @@
       </div>
       <div class="field" v-bind:class="{ error: status.unauthorized }">
         <label>Email Address</label>
-        <input type="email" name="email-address"
-          placeholder="first.last@sentient.ai" v-model=user.email>
+        <input type="email" name="email-address" v-model=user.email>
       </div>
       <div class="field" v-bind:class="{ error: status.unauthorized }">
         <label>Password</label>

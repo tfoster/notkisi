@@ -23,7 +23,7 @@ const router = new Router({
     {
       path: '/logout',
       beforeEnter: (to, from, next) => {
-        localStorage.removeItem('notkisi_auth');
+        localStorage.clear();
         next('/');
       },
     },
